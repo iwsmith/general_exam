@@ -1,0 +1,826 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{overview}{%
+\subsection{Overview}\label{overview}}
+
+This document analyzes the \href{http://dblp.uni-trier.de/}{DBLP}
+computer science bibliography, distributed by
+\href{https://aminer.org/citation}{AMiner}. I specifically analyze the
+\href{https://static.aminer.org/lab-datasets/citation/dblp.v10.zip}{DBLP-Citation-network
+V10} dataset, containing 3,079,007 papers and 25,166,994 citations.
+Pre-processing of the data was performed in
+\href{https://github.com/iwsmith/general_exam/blob/master/preprocessing.py.ipynb}{preprocessing.py}.
+
+We are investigating the following research question: \textgreater{} As
+noted in (4) search engines and recommender systems could be affecting
+what is being searched in the scholarly literature. Are readers,
+collectively, diverging in their reading interests or are they
+converging? What evidences supports these alternative interpretations?
+Using open, bibliographic data sets, investigate this question. The code
+and responses should be written in a Jupypter notebook with text, graphs
+and metrics interspersed. Be sure to justify your metrics and analyses
+and to include your interpretations of your data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}                                       year  \textbackslash{}
+        id                                           
+        00127ee2-cb05-48ce-bc49-9de556b93346  2013   
+        001c58d3-26ad-46b3-ab3a-c1e557d16821  2011   
+        001c8744-73c4-4b04-9364-22d31a10dbf1  2009   
+        00338203-9eb3-40c5-9f31-cbac73a519ec  2011   
+        0040b022-1472-4f70-a753-74832df65266  1998   
+        
+                                                                                     references  \textbackslash{}
+        id                                                                                        
+        00127ee2-cb05-48ce-bc49-9de556b93346  [51c7e02e-f5ed-431a-8cf5-f761f266d4be, 69b625b{\ldots}   
+        001c58d3-26ad-46b3-ab3a-c1e557d16821  [10482dd3-4642-4193-842f-85f3b70fcf65, 3133714{\ldots}   
+        001c8744-73c4-4b04-9364-22d31a10dbf1  [2d84c0f2-e656-4ce7-b018-90eda1c132fe, a083a1b{\ldots}   
+        00338203-9eb3-40c5-9f31-cbac73a519ec  [8c78e4b0-632b-4293-b491-85b1976675e6, 9cdc54f{\ldots}   
+        0040b022-1472-4f70-a753-74832df65266                                               None   
+        
+                                                                                        authors  \textbackslash{}
+        id                                                                                        
+        00127ee2-cb05-48ce-bc49-9de556b93346  [Makoto Satoh, Ryo Muramatsu, Mizue Kayama, Ka{\ldots}   
+        001c58d3-26ad-46b3-ab3a-c1e557d16821                        [Gareth Beale, Graeme Earl]   
+        001c8744-73c4-4b04-9364-22d31a10dbf1  [Altaf Hossain, Faisal Zaman, Mohammed Nasser,{\ldots}   
+        00338203-9eb3-40c5-9f31-cbac73a519ec  [Jea-Bum Park, Byungmok Kim, Jian Shen, Sun-Yo{\ldots}   
+        0040b022-1472-4f70-a753-74832df65266                [Giovanna Guerrini, Isabella Merlo]   
+        
+                                                                                          title  \textbackslash{}
+        id                                                                                        
+        00127ee2-cb05-48ce-bc49-9de556b93346  Preliminary Design of a Network Protocol Learn{\ldots}   
+        001c58d3-26ad-46b3-ab3a-c1e557d16821  A methodology for the physically accurate visu{\ldots}   
+        001c8744-73c4-4b04-9364-22d31a10dbf1  Comparison of GARCH, Neural Network and Suppor{\ldots}   
+        00338203-9eb3-40c5-9f31-cbac73a519ec  Development of Remote Monitoring and Control D{\ldots}   
+        0040b022-1472-4f70-a753-74832df65266  Reasonig about Set-Oriented Methods in Object {\ldots}   
+        
+                                              out\_cite  author\_cnt  title\_len  \textbackslash{}
+        id                                                                      
+        00127ee2-cb05-48ce-bc49-9de556b93346         2           8    3079007   
+        001c58d3-26ad-46b3-ab3a-c1e557d16821        13           2    3079007   
+        001c8744-73c4-4b04-9364-22d31a10dbf1         2           4    3079007   
+        00338203-9eb3-40c5-9f31-cbac73a519ec         2           5    3079007   
+        0040b022-1472-4f70-a753-74832df65266         0           2    3079007   
+        
+                                                      flow  in\_cite  
+        id                                                           
+        00127ee2-cb05-48ce-bc49-9de556b93346  0.000000e+00      NaN  
+        001c58d3-26ad-46b3-ab3a-c1e557d16821  2.061690e-08      1.0  
+        001c8744-73c4-4b04-9364-22d31a10dbf1  4.608480e-08      2.0  
+        00338203-9eb3-40c5-9f31-cbac73a519ec  0.000000e+00      NaN  
+        0040b022-1472-4f70-a753-74832df65266           NaN      NaN  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:}                year      out\_cite    author\_cnt     title\_len          flow  \textbackslash{}
+         count  3.079007e+06  3.079007e+06  3.079007e+06  3.079007e+06  2.725533e+06   
+         mean   2.007767e+03  8.173737e+00  3.077669e+00  7.316575e+01  3.669007e-07   
+         std    7.816538e+00  9.707329e+00  1.780460e+00  2.559721e+01  2.312681e-06   
+         min    1.936000e+03  0.000000e+00  0.000000e+00  4.000000e+00  0.000000e+00   
+         25\%    2.004000e+03  1.000000e+00  2.000000e+00  5.500000e+01  0.000000e+00   
+         50\%    2.010000e+03  6.000000e+00  3.000000e+00  7.100000e+01  5.301480e-08   
+         75\%    2.013000e+03  1.200000e+01  4.000000e+00  8.800000e+01  2.095020e-07   
+         max    2.018000e+03  1.532000e+03  3.510000e+02  4.760000e+02  7.349310e-04   
+         
+                     in\_cite  
+         count  1.985921e+06  
+         mean   1.267271e+01  
+         std    5.616878e+01  
+         min    1.000000e+00  
+         25\%    2.000000e+00  
+         50\%    4.000000e+00  
+         75\%    1.000000e+01  
+         max    1.622900e+04  
+\end{Verbatim}
+        
+    The dataframe consists of 6 columns. Most are self explanitory, except
+for \texttt{flow}, which referes to the Eigenfactor score of a given
+paper. These scores were generated by running:
+\texttt{./infomap\ dblp.pajek\ output\ -t\ -\/-inner-parallelization\ -i\ pjk}
+
+Of note is that the collection spans from 1936 to 2018, with a maximum
+of 1,523 out citations (``Image analysis and computer vision : 1998''),
+and 16,229 in citations (``Distinctive Image Features from
+Scale-Invariant Keypoints'').
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{flow}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{flow}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}                                       year  \textbackslash{}
+        id                                           
+        6a6b9aa6-683f-4c7c-b06e-9c3018d10fd3  1989   
+        b944f77f-113b-4a02-ae5e-d4a124b8fd5b  2004   
+        c1b6b493-01ef-420f-be44-7bacfe34e846  2011   
+        a662a4e7-415e-417e-8a8f-fe085d7e487f  1974   
+        d3e00e7e-1c64-4d7a-b2b2-1ad98ba4c706  1988   
+        
+                                                                                          title  \textbackslash{}
+        id                                                                                        
+        6a6b9aa6-683f-4c7c-b06e-9c3018d10fd3  Genetic Algorithms in Search, Optimization and{\ldots}   
+        b944f77f-113b-4a02-ae5e-d4a124b8fd5b  Distinctive Image Features from Scale-Invarian{\ldots}   
+        c1b6b493-01ef-420f-be44-7bacfe34e846      LIBSVM: A library for support vector machines   
+        a662a4e7-415e-417e-8a8f-fe085d7e487f     The Design and Analysis of Computer Algorithms   
+        d3e00e7e-1c64-4d7a-b2b2-1ad98ba4c706  Probabilistic Reasoning in Intelligent Systems{\ldots}   
+        
+                                                  flow  
+        id                                              
+        6a6b9aa6-683f-4c7c-b06e-9c3018d10fd3  0.000735  
+        b944f77f-113b-4a02-ae5e-d4a124b8fd5b  0.000599  
+        c1b6b493-01ef-420f-be44-7bacfe34e846  0.000474  
+        a662a4e7-415e-417e-8a8f-fe085d7e487f  0.000416  
+        d3e00e7e-1c64-4d7a-b2b2-1ad98ba4c706  0.000372  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{df}\PY{o}{.}\PY{n}{flow}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{logy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histogram of Eigenfactor Scores}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x262c5f710>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Looking at the top papers by flow we find reasonable titles. Notably
+these all seem to be real papers, and not mislabled journals or other
+erros. The same holds true for in-citations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{in\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{in\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}                                       year  \textbackslash{}
+        id                                           
+        b944f77f-113b-4a02-ae5e-d4a124b8fd5b  2004   
+        c1b6b493-01ef-420f-be44-7bacfe34e846  2011   
+        6a6b9aa6-683f-4c7c-b06e-9c3018d10fd3  1989   
+        dd83785a-dd19-41e3-9b25-ebabbd48d336  2005   
+        f6bd8b64-684d-429a-aab5-8ff3a2c23cd6  2001   
+        
+                                                                                          title  \textbackslash{}
+        id                                                                                        
+        b944f77f-113b-4a02-ae5e-d4a124b8fd5b  Distinctive Image Features from Scale-Invarian{\ldots}   
+        c1b6b493-01ef-420f-be44-7bacfe34e846      LIBSVM: A library for support vector machines   
+        6a6b9aa6-683f-4c7c-b06e-9c3018d10fd3  Genetic Algorithms in Search, Optimization and{\ldots}   
+        dd83785a-dd19-41e3-9b25-ebabbd48d336  Histograms of oriented gradients for human det{\ldots}   
+        f6bd8b64-684d-429a-aab5-8ff3a2c23cd6                                     Random Forests   
+        
+                                              in\_cite  
+        id                                             
+        b944f77f-113b-4a02-ae5e-d4a124b8fd5b  16229.0  
+        c1b6b493-01ef-420f-be44-7bacfe34e846  13475.0  
+        6a6b9aa6-683f-4c7c-b06e-9c3018d10fd3  13267.0  
+        dd83785a-dd19-41e3-9b25-ebabbd48d336   8477.0  
+        f6bd8b64-684d-429a-aab5-8ff3a2c23cd6   7968.0  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{o}{.}\PY{n}{in\PYZus{}cite}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{logy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histogram of in\PYZhy{}citations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1deb5e550>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{out\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{out\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}                                       year  \textbackslash{}
+        id                                           
+        da170252-5470-4ed6-947f-04003976f579  1999   
+        ac2acfac-4597-4ebd-b1c5-08c888d73271  1997   
+        d3be0271-593b-44e9-a2c4-cacb26dc1833  2000   
+        c6090c87-4730-4ae6-86cd-7663adb23b2b  2002   
+        d0c11ccc-e743-4a45-bbbc-ba5030b78e33  1991   
+        
+                                                                                          title  \textbackslash{}
+        id                                                                                        
+        da170252-5470-4ed6-947f-04003976f579          Image analysis and computer vision : 1998   
+        ac2acfac-4597-4ebd-b1c5-08c888d73271           Image analysis and computer vision: 1996   
+        d3be0271-593b-44e9-a2c4-cacb26dc1833           Image analysis and computer vision: 1999   
+        c6090c87-4730-4ae6-86cd-7663adb23b2b  Comprehensive frequency-dependent substrate no{\ldots}   
+        d0c11ccc-e743-4a45-bbbc-ba5030b78e33           Image analysis and computer vision: 1990   
+        
+                                              out\_cite  
+        id                                              
+        da170252-5470-4ed6-947f-04003976f579      1532  
+        ac2acfac-4597-4ebd-b1c5-08c888d73271      1362  
+        d3be0271-593b-44e9-a2c4-cacb26dc1833      1001  
+        c6090c87-4730-4ae6-86cd-7663adb23b2b       759  
+        d0c11ccc-e743-4a45-bbbc-ba5030b78e33       734  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{df}\PY{o}{.}\PY{n}{out\PYZus{}cite}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{logy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histogram of out\PYZhy{}citations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x3270f09b0>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Here we find an error,
+\texttt{Image\ analysis\ and\ computer\ vision:\ 1998} is likely the
+title of a journal, not an individual paper. This sort of error is
+common in bibliometric datasets. A classic example is the Google Scholar
+profile for the well known
+\href{https://scholar.google.nl/citations?user=qGuYgMsAAAAJ\&hl=en}{et
+al}, who has nearly 115k citations this year alone.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{author\PYZus{}cnt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{author\PYZus{}cnt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}                                       year  \textbackslash{}
+         id                                           
+         5de90b6c-92cb-40f5-898a-5eecd10c3d14  2017   
+         23d6baa9-65fb-4cd1-a470-63b4227f2955  2015   
+         2c12b8a7-4258-4513-b40a-475427d492c5  2014   
+         66fe9d26-426c-4c98-ab7e-fe71dd4d48ed  2006   
+         106b4db9-2ae6-4744-9533-f7809345f1ca  2002   
+         
+                                                                                           title  \textbackslash{}
+         id                                                                                        
+         5de90b6c-92cb-40f5-898a-5eecd10c3d14  Construction and Analysis of Weighted Brain Ne{\ldots}   
+         23d6baa9-65fb-4cd1-a470-63b4227f2955  The IceProd framework : Distributed data proce{\ldots}   
+         2c12b8a7-4258-4513-b40a-475427d492c5        A promoter-level mammalian expression atlas   
+         66fe9d26-426c-4c98-ab7e-fe71dd4d48ed  Length Sensing and Control in the Virgo Gravit{\ldots}   
+         106b4db9-2ae6-4744-9533-f7809345f1ca        An Overview of the BlueGene/L Supercomputer   
+         
+                                               author\_cnt  
+         id                                                
+         5de90b6c-92cb-40f5-898a-5eecd10c3d14         351  
+         23d6baa9-65fb-4cd1-a470-63b4227f2955         286  
+         2c12b8a7-4258-4513-b40a-475427d492c5         261  
+         66fe9d26-426c-4c98-ab7e-fe71dd4d48ed         119  
+         106b4db9-2ae6-4744-9533-f7809345f1ca         115  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df}\PY{o}{.}\PY{n}{author\PYZus{}cnt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{logy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histogram of author counts}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x23a388f28>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n+nb}{vars}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{in\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{out\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{flow}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} <seaborn.axisgrid.PairGrid at 0x220a4f550>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of papers by year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1e601a908>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{in\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{out\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{logy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average citation counts over time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x265fcea90>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Since we are investigating questions around citation patterns we should
+understand what they look like in this dataset. First, the top plot
+shows a sharp increase in the number of papers after 2000. In the second
+plot we see a steady increase in the average number of out citations
+over time, while the average in bound citations remain steady until
+apporximately 2000, where they begin falling off. This could be due to
+papers not yet being fixed in the citation graph, though 10 years is a
+longer estimate than is normally provided, especially for copmuter
+science, which this collection covers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{k}{def} \PY{n+nf}{lorenz\PYZus{}curve}\PY{p}{(}\PY{n}{ds}\PY{p}{,} \PY{n}{quantiles}\PY{o}{=}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{6}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{breaks} \PY{o}{=} \PY{n}{ds}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{n}{quantiles}\PY{p}{)}
+             \PY{n}{t} \PY{o}{=} \PY{n}{ds}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{cs} \PY{o}{=} \PY{p}{[}\PY{n}{ds}\PY{p}{[}\PY{n}{ds} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{b}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{t} \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{n}{breaks}\PY{p}{]}
+             \PY{n}{cs}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{quantiles}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{cs}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{quantiles}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}lorenz}\PY{p}{(}\PY{n}{ls}\PY{p}{,} \PY{n}{tl}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{ls}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{n}{tl}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{plot\PYZus{}lorenz}\PY{p}{(}\PY{n}{lorenz\PYZus{}curve}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{in\PYZus{}cite}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lorenz Curve for in\PYZhy{}citations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{plot\PYZus{}lorenz}\PY{p}{(}\PY{n}{lorenz\PYZus{}curve}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{flow}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lorenz Curve for flow}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{plot\PYZus{}lorenz}\PY{p}{(}\PY{n}{lorenz\PYZus{}curve}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{out\PYZus{}cite}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lorenz Curve for out\PYZhy{}citations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the above plots we compare the Lorenz Curves for in-citations,
+Eigenfactor score (flow), and out-citations. A Lorenz Curve is a
+visualization of the distribution of some value, with the x-axis being
+the cumulative percent of the populace (papers in this case), and the
+y-axis the cumulative percent of the value being examined. The Yellow
+line in each represents perfect equality (e.g.~each paper has the exact
+same number of citations). It is interesting to see that Eigenfactor
+scores have worse inequality than in-citations.
+
+    A common method for calculating inequality is via the Gini coefficient.
+We calculate the Gini coefficient for a non-decreasing
+\(y_i <= y_{i+1}\) as:
+\[G = \frac{1}{n}(n+1-2\frac{\sum_{i=1}^{n} (n+1-i)y_i}{\sum_{i=1}^{n}y_i})\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{def} \PY{n+nf}{gini}\PY{p}{(}\PY{n}{vs}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{vs}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{vs} \PY{o}{=} \PY{n}{vs}\PY{o}{.}\PY{n}{values}
+             \PY{n}{vs} \PY{o}{=} \PY{n}{vs}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{vs}\PY{p}{)}\PY{p}{]}
+             \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{vs}\PY{p}{)}
+             \PY{n}{vs}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+             \PY{n}{svs} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{vs}\PY{p}{)}
+             \PY{k}{if} \PY{n}{svs} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{vs}\PY{p}{,} \PY{n}{start}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{s}\PY{o}{+}\PY{o}{=}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{)}\PY{o}{*}\PY{n}{y}
+             \PY{k}{return} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{n}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{s}\PY{o}{/}\PY{n}{svs}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{gini}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{in\PYZus{}cite}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:} 0.71622795538327888
+\end{Verbatim}
+        
+    Above we calculate the Gini coefficient over the entire dataset for
+in-citations. We find an answer of 71.6. If we were looking at global
+income inequality this would be higher than any country in the world.
+The World Bank estimates South Africa's coeficient at 63.4. For
+reference, the US has a coeficient of 41. This means the distribution of
+in-citations in the DBLP corpus is more unequal than the most unequal
+country.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{gi} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{in\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{n}{gini}\PY{p}{)}
+         \PY{n}{gf} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{flow}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{n}{gini}\PY{p}{)}
+         \PY{n}{gi}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{gf}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gini coefficient for flow and in\PYZhy{}citations by year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x239986898>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Here we calcuate the Gini coefficient for in-citations and Eigenfactor
+score (flow) for each year. There appears to be a slight decrease from
+the 1970's on, with a drastic drop after 2000, corresponding to the drop
+in the average in-citations we observed earlier. There are a few
+possible interpretations here: 1) paper citations becoming more diverse
+or 2) the highly cited/classic papers haven't yet been identified. Given
+the corresponding drop in the average number of in-citations (1) seems
+to have more evidence supporting it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{in\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{out\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{author\PYZus{}cnt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{title\PYZus{}len}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:}              in\_cite  out\_cite      year  author\_cnt  title\_len
+         in\_cite     1.000000  0.082356 -0.102966   -0.006078  -0.053284
+         out\_cite    0.082356  1.000000  0.221947    0.069297   0.000437
+         year       -0.102966  0.221947  1.000000    0.230172   0.185475
+         author\_cnt -0.006078  0.069297  0.230172    1.000000   0.129574
+         title\_len  -0.053284  0.000437  0.185475    0.129574   1.000000
+\end{Verbatim}
+        
+    If there is a change in citation counts over time we might find evidence
+of this in correlations. We find that in-citations are weakly negatively
+correlated with time, which makes sense: older papers have more time to
+gather citations. We also see out-citatoins positively correlated with
+time, a finding that matches earlier analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{title\PYZus{}len}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{author\PYZus{}cnt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{,} \PY{n}{secondary\PYZus{}y}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{author\PYZus{}cnt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1e54e0b70>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Finally, for a bit of fun I decided to see if the number of authors or
+title lengths are changing over time. It turns out both are increasing,
+nearly doubling over the lifetime of the entire dataset. I can
+understand the increase in authors, there are more scientists than there
+ever have been. I am less clear on why title lengths have gotten so much
+longer though, perhaps some kind of academic SEO in action?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{in\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{out\PYZus{}cite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{logy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Max citation counts over time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x3169cc710>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{conclusions}{%
+\subsection{Conclusions}\label{conclusions}}
+
+I analyzed the DBLP computer science bibliography looking for effects of
+recommenders in the citation patterns of the papers, specifically the
+Matthew effect (the rich get richer, while the poor get poorer). Using a
+Gini coefficient for each year I did not increasing inequality in
+in-citations over time. Actually there appears to be a small decrease
+over time. This could correspond to an increasing number of papers being
+written, which are diluting the effects of superstars. This would be the
+case if there were some sort of upper limit on in-citations. The above
+graph investigates this, showing that the maximum number of in-citations
+over time is increasing, though perhaps not as quickly as the number of
+additional papers being written.
+
+Future investigations should try and derive a distance metric for
+papers. This would allow us to measure how diverse citations lists are
+for each year.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
